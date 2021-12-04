@@ -1,9 +1,9 @@
 from fpdf import FPDF
 
-path_to_logo=r'C:\Users\Dell\Desktop\1901CE15_2021\proj2\download.png'
-path_to_text=r'C:\Users\Dell\Desktop\1901CE15_2021\proj2\19-iitpatna.jpg'
-path_to_stamp=r"C:\Users\Dell\Desktop\1901CE15_2021\proj2\stamp.png"
-path_to_sign=r"C:\Users\Dell\Desktop\1901CE15_2021\proj2\sign.png"
+path_to_logo=r'download.png'
+path_to_text=r'19-iitpatna.jpg'
+path_to_stamp=r"stamp_uploaded.png"
+path_to_sign=r"sign_uploaded.png"
 
 class PDF_MINER(FPDF):
     
@@ -32,6 +32,6 @@ class PDF_MINER(FPDF):
     
     def imagex_table(self,o_x,o_y,path_to_table,width=90,height=60):
         self.set_xy(o_x,o_y)
-        self.image(path_to_table,  link='', type='', w=90, h=height)
+        self.image(path_to_table,  link='', type='', w=width, h=height)
     
     

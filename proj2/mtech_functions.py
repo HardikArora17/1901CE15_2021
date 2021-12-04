@@ -9,6 +9,8 @@ import dataframe_image as dfi
 from pdf_components import PDF_MINER
 from tqdm import tqdm
 
+from pytz import timezone 
+from datetime import datetime
 
 #START MAKING THE PDF (NOW FOR BTECH)
 
@@ -174,9 +176,11 @@ def bottom_mtech(pdf):
     pdf.lines(10,215,210,215)
 
     #DATE OF ISSUE
+    ind_time = datetime.now(timezone("Asia/Kolkata")).strftime('%d %b %Y, %H:%M')
+
     pdf.set_font('Arial','B',8)
     pdf.set_xy(15,245)
-    pdf.cell(10, 9, 'Date of Issue:', 0, 1, 'L')
+    pdf.cell(10, 9, 'Date of Issue: '+str(ind_time), 0, 1, 'L')
 
     #IIT PATNA STAMP
     pdf.stamp(90,240,27,32)

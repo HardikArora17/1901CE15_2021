@@ -1,4 +1,3 @@
-print("************************************************************")
 import os
 import csv
 from fpdf import FPDF
@@ -8,6 +7,8 @@ import matplotlib.pyplot as plt
 import dataframe_image as dfi
 from pdf_components import PDF_MINER
 from tqdm import tqdm
+from pytz import timezone 
+from datetime import datetime
 
 
 #START MAKING THE PDF (NOW FOR BTECH)
@@ -149,7 +150,7 @@ def top_btech(pdf,roll,name,dis,y):
     
 #CREDITS BLOCK
 
-def credits_block_btech(pdf,s_x,s_y,c_c,spi,cpi):
+def credits_block_btech(pdf,s_x,s_y,c_c,c_c_cr,spi,cpi):
     s_x= s_x
     s_y= s_y#+68+42
 
@@ -165,7 +166,7 @@ def credits_block_btech(pdf,s_x,s_y,c_c,spi,cpi):
 
     #CREDITS CLEARED
     pdf.set_xy(s_x+35,s_y-1.5)
-    pdf.cell(10, 9, 'Credits Cleared: '+str(c_c), 0, 1, 'C')
+    pdf.cell(10, 9, 'Credits Cleared: '+str(c_c_cr), 0, 1, 'C')
 
     #SPI
     pdf.set_xy(s_x+60,s_y-1.5)
@@ -176,21 +177,29 @@ def credits_block_btech(pdf,s_x,s_y,c_c,spi,cpi):
     pdf.cell(10, 9, 'CPI:'+str(cpi), 0, 1, 'C')
     
 
-def bottom_btech(pdf):
+
+def bottom_btech(pdf,flag_stamp,flag_sign):
     #BOTTOM PART
     pdf_w=420  #WIDTH OF RECTANGLE
     pdf_h=297  #HEIGHT OF RECTANGLE
 
     pdf.lines(10,215,410,215)
+    ind_time = datetime.now(timezone("Asia/Kolkata")).strftime('%d %b %Y, %H:%M')
 
     #DATE OF ISSUE
     pdf.set_font('Arial','B',15)
     pdf.set_xy(15,245)
-    pdf.cell(10, 9, 'Date of Issue:', 0, 1, 'L')
-
+    pdf.cell(10, 9, 'Date of Issue: '+str(ind_time), 0, 1, 'L')
+    
     #IIT PATNA STAMP
-    pdf.stamp(160,230,52,52)
+    if(flag_stamp):
+        pdf.stamp(160,230,52,42)
 
     #REGISTRAR
-    pdf.sign(350,235,60,42)
+    pdf.set_font('Arial','B',15)
+    pdf.set_xy(320,240)
+    pdf.cell(10, 9, 'Assistant Registrar(Academic)', 0, 1, 'L')
+    
+    if(flag_sign):
+        pdf.sign(340,220,32,32)
 
